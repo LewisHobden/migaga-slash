@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { SlashCreator, FastifyServer } = require('slash-create');
+const { SlashCreator, GatewayServer } = require('slash-create');
 const path = require('path');
 const CatLoggr = require('cat-loggr');
 const logger = new CatLoggr().setLevel(process.env.COMMANDS_DEBUG === 'true' ? 'debug' : 'info');
@@ -10,6 +10,9 @@ const creator = new SlashCreator({
   token: process.env.DISCORD_BOT_TOKEN,
   serverPort: 8020
 });
+
+const Discord = require('discord.js');
+const client = new Discord.Client();
 
 creator.on('debug', (message) => logger.log(message));
 creator.on('warn', (message) => logger.warn(message));
@@ -22,9 +25,8 @@ creator.on('commandRegister', (command) =>
 creator.on('commandError', (command, error) => logger.error(`Command ${command.commandName}:`, error));
 
 creator
-  .withServer(new FastifyServer())
+  .withServer(new GatewayServer((handler) => client.ws.on('INTERACTION_CREATE', handler)))
   .registerCommandsIn(path.join(__dirname, 'commands'))
-  .syncCommands()
-  .startServer();
+  .syncCommands();
 
-// This should serve in localhost:8020/interactions
+client.login(process.env.DISCORD_BOT_TOKEN);

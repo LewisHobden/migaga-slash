@@ -3,17 +3,19 @@ const { SlashCommand, CommandOptionType } = require('slash-create');
 module.exports = class HelloCommand extends SlashCommand {
   constructor(creator) {
     super(creator, {
-      name: 'hello',
-      description: 'Says hello to you.',
+      name: 'ban',
+      description: 'Bans a user.',
       options: [{
-        type: CommandOptionType.STRING,
-        name: 'food',
-        description: 'What food do you like?'
+        type: CommandOptionType.USER,
+        name: 'user',
+        description: 'The user to ban'
       }]
     });
   }
 
   async run(ctx) {
-    return ctx.options.food ? `You like ${ctx.options.food}? Nice!` : `Hello, ${ctx.member.displayName}!`;
+    console.log(ctx.options.user);
+
+    return ctx.options.user ? `Banning, ${ctx.options.user.displayName}!` : "You must select a user to ban.";
   }
 }

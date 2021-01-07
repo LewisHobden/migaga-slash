@@ -1,5 +1,6 @@
-# slash-create-template
-This templates helps you in creating slash commands from a webserver.
+# Migaga/
+Built on top of slash-create, this is the Slash Command / Interactions extension to Migaga.
+
 
 ## Installation
 1. Install dependencies
