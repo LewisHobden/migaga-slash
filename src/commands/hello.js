@@ -14,8 +14,6 @@ module.exports = class HelloCommand extends SlashCommand {
   }
 
   async run(ctx) {
-    console.log(ctx.options.user);
-
-    return ctx.options.user ? `Banning, ${ctx.options.user.displayName}!` : "You must select a user to ban.";
+    return ctx.options.user ? `Banning <@${ctx.options.user}>!` : "You must select a user to ban.";
   }
 }

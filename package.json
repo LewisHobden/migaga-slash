@@ -4,7 +4,8 @@
   "description": "A template for slash-create",
   "main": "src/index.js",
   "scripts": {
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "test": "mocha --recursive"
   },
   "dependencies": {
     "cat-loggr": "^1.1.0",
